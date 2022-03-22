@@ -1,0 +1,89 @@
+# Problem 1 answers
+
+## Question 1  
+
+```SQL
+INSERT INTO department VALUES(
+	3,
+    'Human Resources',
+    '999887777',
+    '1999-1-1'
+);
+
+DELETE FROM employee WHERE SSN = '999887777';
+```
+
+> #1451 - Cannot delete or update a parent row: a foreign key constraint fails (`company`.`department`, CONSTRAINT `department_ibfk_1` FOREIGN KEY (`MGR_SSN`) REFERENCES `employee` (`SSN`))
+
+---
+
+## Question 2  
+
+```SQL
+INSERT INTO project VALUES(
+	8,
+    'Recommendation System',
+    'Silicon Valley',
+    20
+);
+```
+
+> #1452 - Cannot add or update a child row: a foreign key constraint fails (`company`.`project`, CONSTRAINT `project_ibfk_1` FOREIGN KEY (`DNO`) REFERENCES `department` (`DNUMBER`))
+
+---
+
+## Question 3
+
+1. Create `employee` table without the foreign key constraint.  
+```SQL  
+CREATE TABLE EMPLOYEE (
+	SSN VARCHAR(20) NOT NULL,
+    FNAME VARCHAR(255) NOT NULL,
+    LNAME VARCHAR(255) NOT NULL,
+    BDATE DATE NOT NULL,
+    ADDRESS VARCHAR(2048),
+    GENDER ENUM('M','F'), 
+    SALARY FLOAT(24),
+    DNO SMALLINT NOT NULL,
+    
+    PRIMARY KEY (SSN)
+);
+```  
+2. Create `department` table.  
+```SQL  
+CREATE TABLE DEPARTMENT (
+	DNUMBER SMALLINT NOT NULL,
+    DNAME VARCHAR(255) NOT NULL,    
+    MGR_SSN VARCHAR(20) NOT NULL,
+    MGR_START_DATE DATE,
+    
+    FOREIGN KEY (MGR_SSN) REFERENCES EMPLOYEE(SSN),
+    PRIMARY KEY (DNUMBER)
+);  
+```  
+3. Insert the first row in `employee`.
+```SQL  
+INSERT INTO EMPLOYEE VALUES(
+	'123456789',
+    'John',
+    'Smith',
+    '1965-01-09',
+    '731 Fondren, Houston, TX',
+    'M',
+    30000,
+    5
+);
+```
+4. Insert the first row in `department`.
+```SQL
+INSERT INTO DEPARTMENT VALUES(
+	5,
+    'Research',
+    '123456789',
+    '1988-05-22'
+);
+```
+5. Alter `employee` to add the foreign key constraint.
+```SQL
+ALTER TABLE EMPLOYEE ADD FOREIGN KEY (DNO) REFERENCES DEPARTMENT (DNUMBER);
+```

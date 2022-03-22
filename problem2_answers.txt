@@ -1,0 +1,109 @@
+# Problem 2 answers  
+
+## Question 1  
+```SQL  
+SELECT NAME FROM member WHERE JOIN_DATE>'2000-09-01 00:00:00';
+```
+
+>"NAME"  
+>"Mariane Hegmann"  
+>"Ericka Rice"  
+>"Margaretta Effertz"  
+>"Prof. Brett Turner"  
+>"Eunice Purdy"  
+>"Connie Dickens"  
+>"Ciara Hessel"  
+>"Mr. Daron Carter Jr."  
+>"Presley Swaniawski"  
+>"Tamia Kautzer"  
+>"Chesley Rodriguez"  
+>"Prof. Ray O'Connell"  
+>"Prof. Gerald Price"  
+>"Benny Mitchell"  
+>"Domenic Casper"  
+>"Rylan Cummerata"  
+>"Herman Dach"  
+
+## Question 2
+
+```SQL
+SELECT * FROM member WHERE JOIN_DATE >='1995-10-1 00:00:00' AND JOIN_DATE <= '2019-10-1 00:00:00';
+```  
+> MEMBER_ID	NAME	ADDRESS	JOIN_DATE	  
+> 3	Mariane Hegmann	02651 Hipolito Ford Apt. 144  
+> Lake Arden, ID 37085-...	2011-06-01 11:27:02	  
+> 4	Ericka Rice	447 Bradtke Mission Apt. 112  
+> Schadenmouth, LA 6557...	2014-04-23 19:13:08	  
+> 6	Margaretta Effertz	405 Constance Row Apt. 992  
+> New Dorian, NJ 46795	2016-09-10 23:27:50	  
+> 11	Prof. Brett Turner	35675 Jessica Springs  
+> Port Della, NY 82118-7428	2015-03-10 02:28:30	  
+> 17	Connie Dickens	161 Nia Lane  
+> East Myra, LA 19349	2006-07-15 22:57:20	  
+> 18	Ciara Hessel	73279 Lehner Forks  
+> Port Michaelatown, VT 71256	2006-12-02 11:25:19	  
+> 19	Kane Parker I	25314 Naomie Mission  
+> West Amie, UT 94743	1996-08-23 13:29:36	  
+> 20	Mr. Daron Carter Jr.	97787 Schuppe Crossing Suite 230  
+> New Myrtice, NM 6...	2007-10-05 00:47:09	  
+> 22	Presley Swaniawski	0381 Karl Landing  
+> East Johann, ND 96968-3266	2017-01-31 18:42:05	  
+> 24	Mohamed Rempel	80889 Bernhard Wells  
+> East Sheila, DC 02535	1996-07-13 00:07:07	  
+> 25	Tamia Kautzer	729 Kilback Springs Apt. 709  
+> Shakirashire, AR 7802...	2018-07-11 07:15:43	  
+> 26	Prof. Kitty Romaguera	7443 Sporer Hills  
+> New Hazlehaven, TN 62783-3058	2000-05-23 16:52:55	  
+> 27	Chesley Rodriguez	016 Douglas Cliffs Suite 320  
+> Nedrabury, TX 25757-0...	2014-08-16 01:14:08	  
+> 28	Scot Reinger	414 McCullough Square  
+> Lake Tracystad, DE 93855	1995-11-12 05:49:42	  
+> 34	Prof. Ray O'Connell	627 Edwardo Lights Suite 989  
+> Port Vadachester, VT ...	2012-05-11 12:21:35	  
+> 35	Prof. Gerald Price	0907 Buckridge Mountain Apt. 919  
+> Morissettefort, W...	2003-12-01 06:42:42	  
+> 39	Benny Mitchell	57007 Gusikowski Gardens Suite 805  
+> East Dockshire,...	2003-07-01 14:09:59	  
+> 40	Domenic Casper	6269 Melvina Flats  
+> Ryanchester, LA 54030-9264	2012-10-27 23:15:32	  
+> 48	Rylan Cummerata	8841 Zetta Curve Suite 196  
+> New Cassidy, WY 98133-9...	2008-09-25 20:41:27	  
+> 50	Herman Dach	9700 Zieme Lane Suite 151  
+> Tiaramouth, SD 17056-995...	2014-11-10 06:19:42	  
+>   
+
+## Question 3
+
+```SQL
+SELECT * FROM BOOK WHERE PUB_ID IN (SELECT PUB_ID FROM PUBLISHER WHERE NAME = 'Oxford') OR (PRICE >= 15 AND PRICE <= 20);
+```
+>BOOK_ID	TITLE	                    PRICE	PUB_ID	CATEGORY_ID	   
+>1	        Hamlet	                    19.5	2	    3	  
+>2	        Macbeth	                    19.5	3	    3	  
+>4	        Introduction To Algorithms	15.5	2	    2	  
+>5	        Cracking the code interview	15.5	2	    2	  
+
+## Question 4
+
+```SQL
+SELECT title FROM BOOK WHERE BOOK_ID IN(
+    SELECT book_ID FROM borrowing_book WHERE MEMBER_ID IN (
+        SELECT MEMBER_ID FROM member WHERE NAME = 'Scot Reinger'
+	)
+);
+```
+
+>title	  
+>harry potter and the chamber of secrets  	  
+>Stay with me	  
+ 
+## Question 5  
+```SQL
+SELECT name FROM member WHERE member_ID IN(
+	SELECT MEMBER_ID FROM borrowing_book WHERE YEAR(BORROW_DATE)=2019
+); 
+```  
+>name	    
+>Prof. Brett Turner	    
+>Ciara Hessel	    
+>Dedrick Daugherty	    
