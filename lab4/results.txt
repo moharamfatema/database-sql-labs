@@ -1,0 +1,270 @@
+QUERY 1 RESULTS:
+
+SELECT customer_name FROM customer WHERE customer_name LIKE "Ma%";
+
+customer_name	
+Mara Hudson	
+Malachi Baxter	
+Mark Franks	
+May Reese	
+Mariko Frederick	
+Madonna Foreman	
+Marvin Rich	
+Macy Holman	
+
+QUERY 2 RESULTS:
+
+SELECT order_item.order_id, COUNT(DISTINCT order_item.item_id), SUM(order_item.quantity * item.unit_price) FROM (
+    order_item JOIN item on order_item.item_id = item.item_id
+)GROUP BY order_id;
+
+
+order_id	COUNT(DISTINCT order_item.item_id)	SUM(order_item.quantity * item.unit_price)	
+1	1	3772	
+2	1	113675	
+4	1	63408	
+7	2	112256	
+8	3	115217	
+11	2	30558	
+14	1	207475	
+15	2	143171	
+17	3	78385	
+18	4	220062	
+19	1	10959	
+20	2	45245	
+22	1	9094	
+23	3	173920	
+25	1	55212	
+26	2	148444	
+28	3	94516	
+29	2	40395	
+31	1	59720	
+32	1	440	
+33	3	59366	
+34	4	141024	
+35	3	97636	
+37	3	69299	
+38	3	223593	
+
+QUERY 3 RESULTS:
+
+SELECT shipment.order_id FROM (
+    shipment JOIN warehouse on shipment.warehouse_id = warehouse.warehouse_id 
+) WHERE warehouse.warehouse_city = "Arica";
+
+
+order_id	
+16	
+27	
+28	
+114	
+124	
+182	
+183	
+
+QUERY 4 RESULTS:
+
+SELECT SUM( order_item.quantity * item.unit_price) FROM (
+	(SELECT order_id FROM shipment WHERE warehouse_id = 8) q
+    JOIN order_item ON q.order_id = order_item.order_id
+    JOIN item ON item.item_id = order_item.item_id
+)GROUP BY order_item.order_id;
+
+
+SUM( order_item.quantity * item.unit_price)	
+45245	
+205654	
+211750	
+489824	
+2510	
+
+QUERY 5 RESULTS:
+
+SELECT warehouse.warehouse_id, warehouse.warehouse_city, COUNT(shipment.order_id) FROM (
+	warehouse LEFT JOIN shipment ON warehouse.warehouse_id = shipment.warehouse_id
+) GROUP BY warehouse.warehouse_id;
+
+
+warehouse_id	warehouse_city	COUNT(shipment.order_id)	
+1	Geelong	3	
+2	Grande Prairie	2	
+3	Lede	4	
+4	Oostende	3	
+5	Kumluca	4	
+6	Arica	7	
+7	Midlands	3	
+8	Aulnay-sous-Bois	7	
+9	Soria	0	
+10	Rouvroy	2	
+11	Precenicco	5	
+12	Sesto al Reghena	3	
+13	Edmundston	1	
+14	Beho	2	
+15	Aisén	4	
+16	Essex	8	
+17	Merritt	4	
+18	Ellikom	4	
+19	l'Escaill re	3	
+20	Houdemont	0	
+21	Enterprise	3	
+22	Queilén	2	
+23	Southwell	1	
+24	Recoleta	2	
+25	Panchià	5	
+
+
+QUERY 6 RESULTS:
+
+SELECT customer.customer_name , COUNT(`ORDER`.order_id) AS "# ORDERS" FROM(
+	customer LEFT JOIN `order` ON customer.customer_id = `ORDER`.customer_id
+) GROUP BY customer.customer_id;
+
+
+customer_name	# ORDERS	
+Stewart Tyler	2	
+Christen Guerrero	1	
+Vaughan Ellison	0	
+Keefe Good	5	
+Jillian Austin	0	
+Chadwick Hogan	2	
+Walter Burton	4	
+Mara Hudson	3	
+Anika Gonzales	2	
+Wang Browning	2	
+Malachi Baxter	4	
+Tyrone Sullivan	0	
+Deanna Morales	3	
+Cyrus Saunders	3	
+Lilah Sanchez	1	
+Echo Bolton	2	
+Channing Lynn	2	
+Jeanette Hester	1	
+Russell Benjamin	0	
+Nita Branch	2	
+Ferris Pollard	2	
+Amal Marsh	1	
+Philip Cain	0	
+Ferris Foley	2	
+Wang Robertson	2	
+Xyla Hickman	3	
+Jennifer Coleman	1	
+Mark Franks	2	
+Vanna Mullen	1	
+May Reese	2	
+Evelyn Bowers	2	
+Hayden Weber	2	
+Melissa Valencia	0	
+Mariko Frederick	2	
+Raven Mann	1	
+Uta Miller	2	
+Guinevere Joyner	2	
+Hayfa Byers	1	
+Henry Bond	4	
+Zelda Love	2	
+Lane Klein	5	
+Addison Meadows	1	
+Venus Townsend	4	
+Charlotte Rios	5	
+Allen Howe	0	
+Gemma Cote	4	
+Ray Cash	1	
+TaShya Walters	2	
+Yoshio Poole	0	
+Kitra Hubbard	1	
+Kristen Barber	1	
+Dora Howe	2	
+Quinlan Greene	4	
+Sylvia Diaz	1	
+Garth Clements	2	
+Angela Burnett	1	
+Brody Whitfield	3	
+Keane Vinson	0	
+Imani Keith	3	
+Kylee Castro	1	
+Fatima Page	2	
+Regan Whitfield	3	
+Todd Burt	2	
+Donna Bernard	2	
+Althea Hebert	1	
+Neville Dyer	4	
+Zachery Pace	2	
+Mohammad Morgan	1	
+Gil Craig	1	
+Brett Zimmerman	2	
+Patricia Quinn	2	
+Madonna Foreman	2	
+Lara Morrison	1	
+Marvin Rich	3	
+Sydney Pierce	1	
+Courtney Dale	4	
+Hoyt Blanchard	2	
+Farrah Gould	3	
+Asher Clayton	2	
+Veda Rasmussen	2	
+Piper Dominguez	2	
+Jordan Best	3	
+Ginger Hood	2	
+Macy Holman	3	
+Bernard Drake	3	
+Harrison Heath	1	
+April Nguyen	2	
+Cade Crosby	3	
+Sawyer Mejia	2	
+Latifah Bullock	3	
+Carly Lowe	2	
+Clarke Mccullough	3	
+Victor Mckinney	1	
+Alexander Wiley	1	
+Noelle George	1	
+Venus Albert	3	
+Laurel Webster	0	
+Myra Santiago	4	
+Kennan Nash	2	
+Josiah Hatfield	3	
+
+
+QUERY 7 RESULTS:
+
+SELECT * FROM item as i WHERE NOT EXISTS (
+	SELECT DISTINCT item_id FROM order_item WHERE i.item_id = order_item.item_id
+);
+
+item_id	unit_price	
+3	9471	
+5	430	
+9	9596	
+10	2786	
+14	2809	
+16	3331	
+24	3170	
+28	3375	
+34	3468	
+42	518	
+51	1892	
+55	9142	
+56	5750	
+73	6718	
+75	7380	
+78	4507	
+80	2174	
+81	60	
+84	3261	
+88	4846	
+89	9324	
+92	7407	
+94	3356	
+99	2636	
+109	1115	
+116	4743	
+121	6928	
+132	3165	
+147	7057	
+156	6798	
+161	7037	
+177	3066	
+179	1326	
+180	789	
+181	2018	
+185	7336	
+190	5039	
+199	9750	
