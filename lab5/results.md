@@ -332,12 +332,42 @@ NULL|NULL   |8	|Linda Davis	|NULL
 217	|Donald King	 |NULL |NULL |NULL
 218	|George Wright	 |NULL |NULL |NULL
 	
-# 10
+# 10.
 
 ## Query
 ```sql
-
+select c.name, c.course_code, p.prof_name, p.prof_id, count(concat(c.course_code,p.prof_id)) as "# times"
+from course c
+join semester_course sc on c.course_code = sc.course_code
+join professor p on p.prof_id = sc.prof_id
+group by p.prof_id , c.course_code
+having count(concat(c.course_code,p.prof_id)) >= 2;
 ```
 
 ## Result
 
+name|	course_code|	prof_name|	prof_id|	# times	
+---|---|---|---|---
+Data Structures|        	CC10|	Ivana Teach	|1	|2	
+Air Quality Engineering|	CC15|	Ivana Teach	|1	|2	
+Operating System Design|	CC12|	Michael Miller|	6|	2	
+
+# 11.
+
+## Query
+```sql
+select d.DEPT_NAME , count(sc.course_code) from 
+department d 
+left join professor p on p.dept_id = d.DEPT_ID
+left join semester_course sc on sc.prof_id = p.prof_id
+group by d.DEPT_ID
+having count(sc.course_code) < 3;
+```
+
+## Result
+
+DEPT_NAME	|count(sc.course_code)	
+---|---
+Arts	|0	
+Electronics	|0	
+Mechanics	|0	

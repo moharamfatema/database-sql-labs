@@ -100,3 +100,21 @@ UNION
     q2
     right join student s on s.student_id = q2.student_id
 );
+
+-- 10
+
+select c.name, c.course_code, p.prof_name, p.prof_id, count(concat(c.course_code,p.prof_id)) as "# times"
+from course c
+join semester_course sc on c.course_code = sc.course_code
+join professor p on p.prof_id = sc.prof_id
+group by p.prof_id , c.course_code
+having count(concat(c.course_code,p.prof_id)) >= 2;
+
+-- 11
+
+select d.DEPT_NAME , count(sc.course_code) from 
+department d 
+left join professor p on p.dept_id = d.DEPT_ID
+left join semester_course sc on sc.prof_id = p.prof_id
+group by d.DEPT_ID
+having count(sc.course_code) < 3;
